@@ -1,0 +1,53 @@
+body{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    background-color: rgb(21, 19, 24);
+    color: rgb(227, 247, 135);
+}
+.card{
+    
+    text-align: center;
+    background-color: rgba(56, 56, 56, 0.527);
+    max-width: 360px;
+    margin: auto;
+    border: 1px solid rgb(206, 206, 206);
+    border-radius: 5px;
+}
+
+
+.bloco{
+    color: rgb(206, 206, 206);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(87, 87, 87, 0.281);
+}
+
+#d2{
+
+    color: rgb(104, 200, 255);
+}
+#i0{
+    font-size: 11px;
+    color: rgb(121, 192, 255);
+}
+
+#d4{
+    font-size: 11px;
+    color: rgb(121, 192, 255);
+}
+.card img{
+    margin: 8px;
+    width: 30px;
+}
+
+
+#map {
+    border: 1px solid rgb(62, 241, 167);
+    border-radius: 5px;
+    margin: auto;
+    width: 260px;
+    height: 260px;
+  }
+

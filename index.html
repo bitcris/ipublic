@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <script src="base.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="cafeware.com.br">
+    <meta name="description" content="My IP address | Meu local">    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>My IP</title>
+</head>
+<body>
+
+
+<div class="card" >
+
+    <div class="bloco">
+        <img src="icons/ipicon.png" alt="ip icon" id="icon">
+        Endereço IP
+    </div>
+    <div id="d0"></div>
+    <div id="i0">Obtendo dados de ISP...</div>
+</div>
+
+<br>
+
+<div class="card">
+    <div class="bloco">
+        <img src="icons/localicon.png" alt="ip icon" id="icon">
+        Localização    
+    </div>
+    <div id="d1"></div>
+    <div id="d2"></div>
+    <br>
+    <div id="map"></div> <br>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</div>
+
+<br>
+
+<div class="card" >
+
+    <div class="bloco">
+        <img src="icons/deviceicon.png" alt="ip icon" id="icon">
+        Dispositivo
+    </div>
+    <div id="d3">verificando...</div> <br>
+    <div id="d4"></div>
+</div>
+
+
+<script>
+
+const apiUrl = 'https://network.dnsx.workers.dev/';
+const resultElement = document.getElementById('d0');
+const d1Element = document.getElementById('d1');
+const d2Element = document.getElementById('d2');
+const d3Element = document.getElementById('d3');
+const d4Element = document.getElementById('d4');
+
+function atualizarExibicao(data) {
+    if (data) {
+        console.log(data)
+        const ip = data.headers["x-real-ip"] || 'Indisponível';
+        const pais = data.countryName || 'País desconhecido';
+        const sistema = data.headers["sec-ch-ua-platform"] || 'Indisponível';
+        const cliente = data.headers["user-agent"] || 'Indisponível';
+
+        resultElement.innerText = `${ip}`;
+        d1Element.innerText = pais;
+        d3Element.innerText = sistema;
+        d4Element.innerText = cliente;
+        //d3Element.innerText = pais;
+    } else {
+        resultElement.innerText = 'Não foi possível obter as informações do IP.';
+    }
+    mais1()
+}
+
+// Função para fazer a requisição HTTP
+function fazerRequisicao() {
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição. Verifique sua conexão com a internet.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Atualizar a exibição com os dados recebidos
+            atualizarExibicao(data);
+        })
+        .catch(error => {
+            // Lidar com erros da requisição aqui
+            console.log(error);
+            resultElement.innerText = 'Erro na requisição. Verifique sua conexão com a internet.';
+        });
+}
+window.onload = fazerRequisicao;
+
+</script>
+
+
+
+
+
